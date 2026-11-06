@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true">
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Feature">
+            <directory>tests/Feature</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory>app</directory>
+        </include>
+    </source>
+    <php>
+        <!-- server, а не env: в Docker переменные из .env уже лежат в $_SERVER, и Laravel читает их первыми.
+             С env тесты в контейнере шли бы с APP_ENV=local против рабочей MySQL. -->
+        <server name="APP_ENV" value="testing" force="true"/>
+        <server name="APP_KEY" value="base64:2fl+Ktvkfl+Fuz4Qp/A75G2RTiWVA/ZoKZvp6fiiM10=" force="true"/>
+        <server name="DB_CONNECTION" value="sqlite" force="true"/>
+        <server name="DB_DATABASE" value=":memory:" force="true"/>
+        <server name="CACHE_STORE" value="array" force="true"/>
+        <server name="SESSION_DRIVER" value="array" force="true"/>
+        <server name="MAIL_MAILER" value="array" force="true"/>
+        <server name="LOG_CHANNEL" value="null" force="true"/>
+        <server name="NOTIFICATION_CHANNELS" value="email" force="true"/>
+        <server name="APP_LOCALE" value="en" force="true"/>
+        <server name="NOTIFICATION_LOCALE" value="en" force="true"/>
+    </php>
+</phpunit>
